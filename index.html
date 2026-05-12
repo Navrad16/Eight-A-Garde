@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            /* Warna Mint Transparan Sesuai Referensi Gambar */
-            --glass: rgba(185, 250, 214, 0.6);
-            --dark-green: #064e3b;
-            --accent-green: #16a34a;
+            /* Warna Dasar dari Desain Asli untuk Chart */
+            --green: #16a34a;
+            --teal: #0d9488;
+            /* Warna UI Mint Transparan */
+            --glass: rgba(185, 250, 214, 0.65);
+            --dark-green: #052e16;
             --radius: 20px;
         }
 
@@ -23,34 +25,35 @@
             background: url('https://i.pinimg.com/736x/f6/d1/3f/f6d13f28dc53835a97934ba82eb5b03a.jpg') no-repeat center center fixed;
             background-size: cover;
             color: var(--dark-green);
-            padding: 20px;
+            padding: 25px;
             min-height: 100vh;
         }
 
         .wrapper { max-width: 1000px; margin: 0 auto; }
 
-        /* HEADER DENGAN IKON APPLE TERBARU */
+        /* HEADER DENGAN IKON APPLE ROBLOX */
         .header {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
         .header h1 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 900;
             color: white;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .apple-icon {
-            height: 70px;
+            height: 75px;
             width: auto;
         }
 
+        /* GRID LAYOUT */
         .grid-main {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -59,57 +62,71 @@
 
         .card {
             background: var(--glass);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             border-radius: var(--radius);
-            padding: 20px;
+            padding: 22px;
             border: 1px solid rgba(255,255,255,0.4);
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
 
         .card-title {
             font-weight: 800;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
+            font-size: 0.95rem;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         input {
-            width: 100%; padding: 10px; margin-bottom: 10px;
-            border-radius: 10px; border: 1px solid rgba(0,0,0,0.1);
+            width: 100%; padding: 11px; margin-bottom: 12px;
+            border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);
             background: rgba(255,255,255,0.5);
             font-weight: 700;
             color: var(--dark-green);
         }
 
         .btn {
-            background: var(--accent-green); color: white; border: none;
-            padding: 12px; border-radius: 12px; font-weight: 800;
-            cursor: pointer; width: 100%; transition: 0.2s;
+            background: var(--green); color: white; border: none;
+            padding: 13px; border-radius: 14px; font-weight: 800;
+            cursor: pointer; width: 100%; transition: 0.3s;
         }
-        .btn:hover { background: var(--dark-green); }
+        .btn:hover { background: var(--dark-green); transform: translateY(-2px); }
 
-        .sensor-val { font-size: 3rem; font-weight: 900; margin: 10px 0; }
-        .chart-container { height: 110px; width: 100%; }
+        .sensor-val { font-size: 3.2rem; font-weight: 900; margin: 12px 0; }
+        .sensor-unit { font-size: 1.2rem; opacity: 0.7; }
+        
+        /* CONTAINER CHART ASLI */
+        .chart-container { 
+            height: 120px; 
+            width: 100%; 
+            background: rgba(255,255,255,0.2); 
+            border-radius: 15px;
+            padding: 10px;
+            margin-top: 10px;
+        }
 
         .full-width { grid-column: span 2; }
         .mode-row { display: flex; justify-content: space-between; align-items: center; }
         
         .btn-mode {
-            padding: 10px 25px; border-radius: 20px; border: none;
-            font-weight: 800; cursor: pointer;
+            padding: 12px 30px; border-radius: 20px; border: none;
+            font-weight: 800; cursor: pointer; transition: 0.3s;
         }
         .btn-mode.active { background: var(--dark-green); color: white; }
         .btn-mode.inactive { background: rgba(255,255,255,0.4); color: var(--dark-green); }
 
-        .actuator-card { text-align: center; }
-        .actuator-icon { font-size: 4rem; opacity: 0.3; transition: 0.3s; }
-        .actuator-icon.on { opacity: 1; color: #f1c40f; }
+        .actuator-card { text-align: center; padding: 40px; }
+        .actuator-icon { font-size: 4.5rem; opacity: 0.2; transition: 0.4s; margin-bottom: 10px; }
+        .actuator-icon.on { opacity: 1; color: #f1c40f; text-shadow: 0 0 25px rgba(241,196,15,0.5); }
 
         .terminal-card { background: #052e16; color: #4ade80; }
-        .log-panel { height: 140px; overflow-y: auto; font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+        .log-panel { height: 160px; overflow-y: auto; font-family: 'Space Mono', monospace; font-size: 0.8rem; line-height: 1.6; }
+
+        .badge { font-size: 0.75rem; font-weight: 800; padding: 5px 14px; border-radius: 20px; background: white; margin-left: auto; }
+        .badge.online { color: var(--green); border: 1.5px solid var(--green); }
     </style>
 </head>
 <body>
@@ -121,23 +138,35 @@
 
     <div class="grid-main">
         <div class="card">
-            <div class="card-title"><i class="fas fa-cloud"></i> Firebase Sync</div>
-            <input type="password" id="fb-apiKey" placeholder="API Key">
-            <input type="text" id="fb-dbUrl" placeholder="Database URL">
+            <div class="card-title">
+                <i class="fas fa-cloud"></i> Firebase Cloud Sync 
+                <span class="badge" id="status-fb">Offline</span>
+            </div>
+            <label style="font-size: 0.6rem; font-weight: 900; opacity: 0.7;">API KEY</label>
+            <input type="password" id="fb-apiKey" placeholder="AIzaSy...">
+            <label style="font-size: 0.6rem; font-weight: 900; opacity: 0.7;">DB URL</label>
+            <input type="text" id="fb-dbUrl" placeholder="https://...firebaseio.com">
+            <label style="font-size: 0.6rem; font-weight: 900; opacity: 0.7;">PATH</label>
             <input type="text" id="fb-path" value="garden/sensor1">
             <button class="btn" id="btn-connect-fb">Connect Firebase</button>
         </div>
 
         <div class="card">
-            <div class="card-title"><i class="fab fa-bluetooth"></i> Bluetooth BLE</div>
-            <p style="font-size: 0.75rem; margin-bottom: 20px;">Hubungkan ke Micro:bit untuk data real-time.</p>
-            <button class="btn" id="btn-connect-ble">Connect Micro:Bit</button>
-            <button class="btn" id="btn-disconnect-ble" style="background:#555; margin-top:10px" disabled>Disconnect</button>
+            <div class="card-title">
+                <i class="fab fa-bluetooth"></i> Bluetooth BLE
+                <span class="badge" id="status-bt">Offline</span>
+            </div>
+            <p style="font-size: 0.8rem; margin-bottom: 30px; opacity: 0.8; line-height: 1.4;">Hubungkan browser ini ke Micro:bit menggunakan Web Bluetooth API.</p>
+            <button class="btn" id="btn-connect-ble"><i class="fas fa-plug"></i> Connect Micro:Bit</button>
+            <button class="btn" id="btn-disconnect-ble" style="background:#555; margin-top:12px" disabled>Disconnect</button>
         </div>
 
         <div class="card full-width mode-row">
-            <p style="font-weight: 900;">SYSTEM MODE</p>
-            <div style="display:flex; gap:10px;">
+            <div>
+                <p style="font-weight: 900; font-size: 1.1rem;"><i class="fas fa-microchip"></i> SYSTEM MODE</p>
+                <p style="font-size: 0.7rem; opacity: 0.7;">Auto: Relay P13 berbasis sensor | Manual: Kontrol via Web</p>
+            </div>
+            <div style="display:flex; gap:12px;">
                 <button class="btn-mode active" id="btn-mode-auto">Automatic</button>
                 <button class="btn-mode inactive" id="btn-mode-manual">Manual</button>
             </div>
@@ -145,27 +174,29 @@
 
         <div class="card">
             <div class="card-title"><i class="fas fa-ruler-vertical"></i> Ultrasonic 1</div>
-            <div class="sensor-val" id="val-jarak">-- cm</div>
+            <div class="sensor-val" id="val-jarak">-- <span class="sensor-unit">cm</span></div>
             <div class="chart-container"><canvas id="chart-jarak"></canvas></div>
         </div>
 
         <div class="card">
-            <div class="card-title"><i class="fas fa-tint"></i> Ultrasonic 2</div>
-            <div class="sensor-val" id="val-jarak-manual">-- cm</div>
+            <div class="card-title"><i class="fas fa-tint"></i> Ultrasonic 2 (Ember)</div>
+            <div class="sensor-val" id="val-jarak-manual">-- <span class="sensor-unit">cm</span></div>
             <div class="chart-container"><canvas id="chart-jarak-manual"></canvas></div>
         </div>
 
         <div class="card full-width actuator-card">
+            <div class="card-title" style="justify-content: center;"><i class="fas fa-bolt"></i> PUMP ACTUATOR (P13)</div>
             <div class="actuator-icon" id="icon-relay">⚡</div>
-            <h2 id="lbl-relay">PUMP OFF</h2>
-            <div id="manual-relay-wrap" style="display:none; margin-top:15px;">
-                <input type="checkbox" id="sw-relay" onchange="window.toggleRelay(this.checked)"> Manual Toggle
+            <h2 id="lbl-relay" style="font-weight: 900; font-size: 1.8rem;">PUMP OFF</h2>
+            <div id="manual-relay-wrap" style="display:none; margin-top:20px;">
+                <label style="font-weight: 900; font-size: 0.8rem; margin-right: 10px;">MANUAL TOGGLE:</label>
+                <input type="checkbox" id="sw-relay" style="width: 25px; height: 25px; vertical-align: middle;" onchange="window.toggleRelay(this.checked)">
             </div>
         </div>
 
         <div class="card full-width terminal-card">
-            <div style="display:flex; justify-content:space-between; font-size:0.7rem; margin-bottom:10px;">
-                <span>SYSTEM_LOG</span>
+            <div style="display:flex; justify-content:space-between; opacity:0.6; font-size:0.7rem; margin-bottom:12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;">
+                <span><i class="fas fa-terminal"></i> SYSTEM_CONSOLE_LOG</span>
                 <i class="fas fa-trash" id="btnClearLog" style="cursor:pointer;"></i>
             </div>
             <div id="terminalLog" class="log-panel"></div>
@@ -174,7 +205,9 @@
 </div>
 
 <script type="module">
-// LOGIKA DAN CHART DESIGN ASLI DARI index (3).html
+/* LOGIKA TETAP ASLI DARI FILE index (3).html
+   Hanya update UI untuk integrasi dengan desain baru
+*/
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import { getDatabase, ref, onValue, update } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
@@ -192,7 +225,9 @@ function log(msg, color = "#4ade80") {
     $('terminalLog').insertAdjacentHTML('afterbegin', `<div style="color:${color}">[${t}] ${msg}</div>`);
 }
 
-// INI ADALAH DESAIN CHART ASLI SESUAI PERMINTAAN
+// =====================================================================
+// CHART DESIGN ASLI (Dipertahankan dari index (3).html)
+// =====================================================================
 function initCharts() {
     const cfg = (label, color) => ({
         type: 'line',
@@ -202,9 +237,10 @@ function initCharts() {
                 label: label,
                 data: [],
                 borderColor: color,
-                backgroundColor: color + '33', // Area fill transparan asli
+                backgroundColor: color + '33', // Efek area fill asli
                 borderWidth: 2,
-                pointRadius: 2,
+                pointRadius: 3,
+                pointBackgroundColor: color,
                 fill: true,
                 tension: 0.4
             }]
@@ -215,7 +251,11 @@ function initCharts() {
             plugins: { legend: { display: false } },
             scales: {
                 x: { display: false },
-                y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } }
+                y: { 
+                    beginAtZero: true, 
+                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    ticks: { font: { size: 10 } }
+                }
             }
         }
     });
@@ -235,48 +275,40 @@ function updateRelayUI(isOn) {
     $('icon-relay').className = isOn ? 'actuator-icon on' : 'actuator-icon';
 }
 
-// Bluetooth & Firebase functions (Tetap dipertahankan agar sistem jalan)
+// =====================================================================
+// LOGIKA BLUETOOTH & FIREBASE (ASLI)
+// =====================================================================
+const SVC_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+const TX_UUID  = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+const RX_UUID  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+
 async function connectBLE() {
     try {
-        state.device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: "BBC micro:bit" }], optionalServices: ["6e400001-b5a3-f393-e0a9-e50e24dcca9e"] });
-        const server = await state.device.gatt.connect();
-        const service = await server.getPrimaryService("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
-        state.txChar = await service.getCharacteristic("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
-        state.rxChar = await service.getCharacteristic("6e400003-b5a3-f393-e0a9-e50e24dcca9e");
-        await state.txChar.startNotifications();
-        state.txChar.addEventListener("characteristicvaluechanged", (e) => {
-            let arr = []; for (let i = 0; i < e.target.value.byteLength; i++) arr.push(e.target.value.getUint8(i));
-            state.bleBuffer += String.fromCharCode.apply(null, arr);
-            const lines = state.bleBuffer.split('\n'); state.bleBuffer = lines.pop() || "";
-            lines.forEach(l => {
-                const p = l.trim().split(',');
-                if(p.length===2) {
-                    const [k,v] = p;
-                    if(k==='jarak'||k==='jarak_manual') {
-                        $(k==='jarak'?'val-jarak':'val-jarak-manual').textContent = v + " cm";
-                        pushHistory(k, v);
-                    } else if(k==='Relay') updateRelayUI(v==='1');
-                }
-            });
+        log("Searching for Micro:bit...");
+        state.device = await navigator.bluetooth.requestDevice({
+            filters: [{ namePrefix: "BBC micro:bit" }],
+            optionalServices: [SVC_UUID]
         });
-        log("BLE Connected!");
-    } catch (e) { log(e.message, "red"); }
+        const server = await state.device.gatt.connect();
+        const service = await server.getPrimaryService(SVC_UUID);
+        state.txChar = await service.getCharacteristic(TX_UUID);
+        state.rxChar = await service.getCharacteristic(RX_UUID);
+
+        await state.txChar.startNotifications();
+        state.txChar.addEventListener('characteristicvaluechanged', (e) => {
+            let arr = [];
+            for (let i=0; i<e.target.value.byteLength; i++) arr.push(e.target.value.getUint8(i));
+            state.bleBuffer += String.fromCharCode.apply(null, arr);
+            const lines = state.bleBuffer.split('\n');
+            state.bleBuffer = lines.pop() || "";
+            lines.forEach(line => processData(line.trim()));
+        });
+
+        $('status-bt').textContent = "Connected";
+        $('status-bt').classList.add('online');
+        $('btn-disconnect-ble').disabled = false;
+        log("Bluetooth Connected!", "#22c55e");
+    } catch (e) { log("Error: " + e.message, "#ff5f56"); }
 }
 
-function pushHistory(key, val) {
-    const h = state.history[key]; if(!h) return;
-    h.labels.push(""); h.data.push(val);
-    if (h.labels.length > MAX_PTS) { h.labels.shift(); h.data.shift(); }
-    const ch = state.charts[`chart-${key==='jarak_manual'?'jarak-manual':key}`];
-    if(ch) { ch.data.labels = h.labels; ch.data.datasets[0].data = h.data; ch.update('none'); }
-}
-
-$('btn-connect-ble').onclick = connectBLE;
-$('btn-mode-auto').onclick = () => { applyMode(true); };
-$('btn-mode-manual').onclick = () => { applyMode(false); };
-$('btnClearLog').onclick = () => $('terminalLog').innerHTML = '';
-
-window.onload = () => { initCharts(); };
-</script>
-</body>
-</html>
+function process
