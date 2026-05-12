@@ -3,33 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eight Garden 🌱</title>
+    <title>Eight Garden - Smart Hydroponics 🌱</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            /* Warna Mint Transparan Sesuai Gambar */
-            --glass: rgba(185, 250, 214, 0.6);
-            --dark-green: #064e3b;
-            --accent-green: #16a34a;
-            --radius: 20px;
+            --primary-green: #2d8a5d;
+            --light-green: #9df0c3;
+            /* Warna card transparan sesuai gambar */
+            --card-bg: rgba(157, 240, 195, 0.7); 
+            --dark-green: #1a4d34;
+            --text-color: #ffffff;
+            --radius: 25px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            /* Background dari link yang kamu berikan */
             background: url('https://i.pinimg.com/736x/f6/d1/3f/f6d13f28dc53835a97934ba82eb5b03a.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: var(--dark-green);
             padding: 20px;
-            min-height: 100vh;
+            color: #1a4d34;
         }
 
-        .wrapper { max-width: 1000px; margin: 0 auto; }
+        .wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-        /* HEADER DENGAN IKON APPLE TERBARU */
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             align-items: center;
@@ -37,279 +43,363 @@
             gap: 15px;
             margin-bottom: 30px;
         }
+        .header img {
+            height: 60px; /* Ikon dari link yang kamu berikan */
+        }
         .header h1 {
-            font-size: 3.5rem;
+            font-size: 3.5em;
             font-weight: 900;
-            color: white;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .apple-icon {
-            height: 70px;
-            width: auto;
-            /* Ikon ini sudah transparan dari link yang kamu berikan */
+            color: #ffffff;
+            text-shadow: 3px 3px 0px var(--primary-green);
         }
 
-        /* GRID LAYOUT SEPERTI REFERENSI */
-        .grid-main {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
+        /* ===== CARDS ===== */
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
             border-radius: var(--radius);
             padding: 20px;
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
 
         .card-title {
             font-weight: 800;
-            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 15px;
+            color: var(--dark-green);
+            font-size: 0.9em;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        /* ===== INPUTS & BUTTONS ===== */
+        input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1.5px solid var(--primary-green);
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.4);
+            font-weight: 600;
+        }
+        .btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn-dark { background: var(--dark-green); }
+
+        /* ===== MODE SELECTION ===== */
+        .mode-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+        }
+        .mode-buttons { display: flex; gap: 10px; }
+        .mode-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
-            text-transform: uppercase;
         }
+        .mode-btn.active { background: var(--primary-green); color: white; }
+        .mode-btn.inactive { background: rgba(255,255,255,0.5); color: var(--primary-green); }
 
-        /* INPUT & BUTTONS */
-        label { display: block; font-size: 0.65rem; font-weight: 900; margin-bottom: 3px; }
-        input {
-            width: 100%; padding: 10px; margin-bottom: 10px;
-            border-radius: 10px; border: 1px solid rgba(0,0,0,0.1);
-            background: rgba(255,255,255,0.5);
-            font-family: inherit; font-weight: 700;
+        /* ===== SENSOR DISPLAYS ===== */
+        .sensor-val {
+            font-size: 3em;
+            font-weight: 900;
             color: var(--dark-green);
+            margin: 10px 0;
+            font-family: 'Space Mono', monospace;
         }
-        .btn {
-            background: var(--accent-green); color: white; border: none;
-            padding: 12px; border-radius: 12px; font-weight: 800;
-            cursor: pointer; width: 100%; transition: 0.2s;
+        .sensor-unit { font-size: 0.4em; margin-left: 5px; }
+
+        /* ===== ACTUATOR ===== */
+        .actuator-card {
+            text-align: center;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
         }
-        .btn:hover { background: var(--dark-green); transform: translateY(-2px); }
 
-        /* SENSOR & CHART */
-        .sensor-val { font-size: 3rem; font-weight: 900; margin: 10px 0; }
-        .sensor-unit { font-size: 1rem; opacity: 0.7; }
-        .chart-container { height: 100px; width: 100%; }
-
-        /* MODE & ACTUATOR */
-        .full-width { grid-column: span 2; }
-        .mode-row { display: flex; justify-content: space-between; align-items: center; }
-        .mode-btns { display: flex; gap: 10px; }
-        .btn-mode {
-            padding: 10px 25px; border-radius: 20px; border: none;
-            font-weight: 800; cursor: pointer; transition: 0.3s;
+        /* ===== TERMINAL ===== */
+        .terminal {
+            background: #052112;
+            border-radius: 20px;
+            padding: 20px;
+            color: #4ef093;
+            font-family: 'Space Mono', monospace;
         }
-        .btn-mode.active { background: var(--dark-green); color: white; }
-        .btn-mode.inactive { background: rgba(255,255,255,0.4); color: var(--dark-green); }
+        .log-panel { height: 150px; overflow-y: auto; font-size: 0.8em; margin-top: 10px;}
 
-        /* RELAY */
-        .actuator-card { text-align: center; padding: 30px; }
-        .actuator-icon { font-size: 4rem; margin-bottom: 10px; opacity: 0.3; transition: 0.3s; }
-        .actuator-icon.on { opacity: 1; color: #f1c40f; text-shadow: 0 0 20px #f1c40f; }
+        /* Status Badges */
+        .status-badge {
+            position: fixed; top: 10px; right: 10px;
+            display: flex; flex-direction: column; gap: 5px;
+        }
+        .s-badge {
+            background: white; padding: 5px 12px; border-radius: 15px; font-size: 10px; font-weight: bold;
+        }
+        .s-badge.online { color: green; }
 
-        /* TERMINAL */
-        .terminal-card { background: #052e16; color: #4ade80; }
-        .log-panel { height: 140px; overflow-y: auto; font-family: 'Space Mono', monospace; font-size: 0.75rem; line-height: 1.5; }
-
-        .badge { font-size: 0.7rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; background: white; margin-left: 10px; }
-        .badge.online { color: var(--accent-green); border: 1px solid var(--accent-green); }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
+<div class="status-badge">
+    <div class="s-badge" id="status-bt">BT Offline</div>
+    <div class="s-badge" id="status-fb">FB Offline</div>
+</div>
+
 <div class="wrapper">
     <div class="header">
-        <h1>Eight <img src="https://img.sanishtech.com/u/421b447f1026ccf6684e267b26fcc9a3.png" class="apple-icon"> Garden</h1>
+        <img src="https://img.sanishtech.com/u/421b447f1026ccf6684e267b26fcc9a3.png" alt="Icon">
+        <h1>Eight Garden</h1>
     </div>
 
-    <div class="grid-main">
+    <div class="grid-2">
         <div class="card">
-            <div class="card-title"><i class="fas fa-cloud"></i> FireBase Cloud Sync <span class="badge" id="status-fb">Offline</span></div>
-            <label>API Key</label><input type="password" id="fb-apiKey">
-            <label>Database URL</label><input type="text" id="fb-dbUrl">
-            <label>Node Path</label><input type="text" id="fb-path" value="garden/sensor1">
-            <button class="btn" id="btn-connect-fb">Connect FireBase</button>
-        </div>
-
-        <div class="card">
-            <div class="card-title"><i class="fab fa-bluetooth"></i> Bluetooth <span class="badge" id="status-bt">Offline</span></div>
-            <p style="font-size: 0.75rem; margin-bottom: 25px; opacity: 0.8;">Klik hubungkan untuk sinkronisasi data langsung dengan Micro:bit.</p>
-            <button class="btn" id="btn-connect-ble">Connect Micro:Bit</button>
-            <button class="btn" id="btn-disconnect-ble" style="background:#555; margin-top:10px" disabled>Disconnect</button>
-        </div>
-
-        <div class="card full-width mode-row">
-            <div>
-                <p style="font-weight: 900;"><i class="fas fa-microchip"></i> System Mode</p>
-                <p style="font-size: 0.7rem; opacity: 0.7;">Auto: Kontrol Sensor | Manual: Kontrol Tombol</p>
-            </div>
-            <div class="mode-btns">
-                <button class="btn-mode active" id="btn-mode-auto">Automatic</button>
-                <button class="btn-mode inactive" id="btn-mode-manual">Manual</button>
-            </div>
+            <div class="card-title"><i class="fas fa-cloud"></i> FireBase Cloud Sync</div>
+            <label style="font-size: 10px; font-weight: bold;">API KEY</label>
+            <input type="password" id="fb-apiKey" placeholder="...">
+            <label style="font-size: 10px; font-weight: bold;">DATABASE URL</label>
+            <input type="text" id="fb-dbUrl" placeholder="...">
+            <label style="font-size: 10px; font-weight: bold;">NODEPATH</label>
+            <input type="text" id="fb-path" value="smarthome/ruangan1">
+            <button class="btn" id="btn-connect-fb"><i class="fas fa-link"></i> Connect FireBase</button>
         </div>
 
         <div class="card">
-            <div class="card-title"><i class="fas fa-ruler-vertical"></i> Ultrasonic 1 (P0)</div>
-            <div class="sensor-val" id="val-jarak">-- <span class="sensor-unit">cm</span></div>
-            <div class="chart-container"><canvas id="chart-jarak"></canvas></div>
+            <div class="card-title"><i class="fas fa-cog"></i> Micro:Bit Bluetooth</div>
+            <p style="font-size: 11px; margin-bottom: 10px; line-height: 1.4;">Pastikan Micro:bit menyala dan ekstensi Bluetooth UART aktif di MakeCode.</p>
+            <button class="btn" id="btn-connect-ble" style="margin-bottom: 10px;"><i class="fab fa-bluetooth-b"></i> Connect Micro:Bit</button>
+            <button class="btn btn-dark" id="btn-disconnect-ble" disabled>Disconnect</button>
         </div>
+    </div>
 
+    <div class="mode-container">
+        <div>
+            <h3 style="font-weight: 900;"><i class="fas fa-robot"></i> System Mode</h3>
+            <p style="font-size: 11px;">Automatic: Kontrol sensor | Manual: Kontrol saklar</p>
+        </div>
+        <div class="mode-buttons">
+            <button class="mode-btn active" id="mode-auto"><i class="fas fa-check-circle"></i> Automatic</button>
+            <button class="mode-btn inactive" id="mode-manual"><i class="fas fa-hand-paper"></i> Manual</button>
+        </div>
+    </div>
+
+    <div class="grid-2">
         <div class="card">
-            <div class="card-title"><i class="fas fa-tint"></i> Ultrasonic 2 (Ember)</div>
-            <div class="sensor-val" id="val-jarak-manual">-- <span class="sensor-unit">cm</span></div>
-            <div class="chart-container"><canvas id="chart-jarak-manual"></canvas></div>
+            <div class="card-title"><i class="fas fa-tint"></i> Ultrasonic 1 - P0 / P1</div>
+            <div class="sensor-val" id="val-jarak">--<span class="sensor-unit">cm</span></div>
+            <p style="font-size: 10px;">Pompa Relay ON jika jarak > 30 cm</p>
+            <div style="height: 60px; margin-top: 10px;"><canvas id="chart-jarak"></canvas></div>
         </div>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-water"></i> Ultrasonic 1 - P3 / P8 - ember</div>
+            <div class="sensor-val" id="val-jarak-manual" style="color: #0d9488;">--<span class="sensor-unit">cm</span></div>
+            <p style="font-size: 10px;">Monitoring level air ember</p>
+            <div style="height: 60px; margin-top: 10px;"><canvas id="chart-jarak-manual"></canvas></div>
+        </div>
+    </div>
 
-        <div class="card full-width actuator-card">
-            <div class="card-title" style="justify-content: center;"><i class="fas fa-bolt"></i> Actuator Control</div>
-            <div class="actuator-icon" id="icon-relay">⚡</div>
-            <h2 id="lbl-relay">PUMP OFF</h2>
-            <div id="manual-relay-wrap" style="display:none; margin-top: 20px;">
-                <label>MANUAL TOGGLE</label>
-                <input type="checkbox" id="sw-relay" style="width: 40px; height: 20px; cursor: pointer;" onchange="window.toggleRelay(this.checked)">
-            </div>
+    <div class="actuator-card">
+        <div class="card-title" style="justify-content: center;"><i class="fas fa-bolt"></i> Aktuator</div>
+        <div style="font-size: 4em; color: white; text-shadow: 0 0 10px var(--primary-green);" id="icon-relay">⚡</div>
+        <p style="font-weight: bold; margin: 10px 0;">P13: untuk mengontrol nyala dan matinya pompa</p>
+        <div id="lbl-relay" style="font-size: 1.5em; font-weight: 900;">OFF</div>
+        
+        <div id="manual-relay-control" style="display: none; margin-top: 15px;">
+            <button class="btn" style="width: auto; display: inline-flex; padding: 10px 30px;" onclick="window.toggleRelay(true)">ON</button>
+            <button class="btn btn-dark" style="width: auto; display: inline-flex; padding: 10px 30px; margin-left: 10px;" onclick="window.toggleRelay(false)">OFF</button>
         </div>
+    </div>
 
-        <div class="card full-width terminal-card">
-            <div style="display:flex; justify-content:space-between; opacity:0.6; font-size:0.7rem; margin-bottom:10px;">
-                <span>SYSTEM_CONSOLE_LOG</span>
-                <i class="fas fa-trash" id="btnClearLog" style="cursor:pointer;"></i>
-            </div>
-            <div id="terminalLog" class="log-panel"></div>
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">Distance(cm)</div>
+            <div style="height: 120px;"><canvas id="chart-jarak-big"></canvas></div>
         </div>
+        <div class="card">
+            <div class="card-title">Manual Distance(cm)</div>
+            <div style="height: 120px;"><canvas id="chart-jarak-manual-big"></canvas></div>
+        </div>
+    </div>
+
+    <div class="terminal">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span><i class="fas fa-terminal"></i> System_terminal - smartgardenmicrobit</span>
+            <button id="btnClearLog" style="background: none; border: none; color: #4ef093; cursor: pointer; font-size: 12px;">Clear</button>
+        </div>
+        <div id="terminalLog" class="log-panel"></div>
     </div>
 </div>
 
 <script type="module">
-// LOGIKA DIADAPTASI DARI FILE ASLI AGAR TETAP BEKERJA
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getDatabase, ref, onValue, update } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+// LOGIKA ASLI DARI FILE index (3).html
+import { initializeApp, getApps, deleteApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getDatabase, ref, onValue, update, set } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
 const state = {
-    db: null, path: "", device: null, txChar: null, rxChar: null,
-    bleConnected: false, bleBuffer: "", modeOtomatis: 1,
-    charts: {}, history: { jarak: { labels: [], data: [] }, jarak_manual: { labels: [], data: [] } }
+    db: null, path: "", unsub: null, device: null, txChar: null, rxChar: null,
+    bleConnected: false, bleBuffer: "", modeOtomatis: 1, charts: {},
+    history: { jarak: { labels: [], data: [] }, jarak_manual: { labels: [], data: [] } }
 };
 
+const MAX_PTS = 30;
 const $ = id => document.getElementById(id);
-const MAX_PTS = 20;
 
-function log(msg, color = "#4ade80") {
+function log(msg, color = "#4ef093") {
     const t = new Date().toLocaleTimeString('id-ID', { hour12: false });
     $('terminalLog').insertAdjacentHTML('afterbegin', `<div style="color:${color}">[${t}] ${msg}</div>`);
 }
 
-function initCharts() {
-    const chartConfig = (color) => ({
-        type: 'line',
-        data: { labels: [], datasets: [{ data: [], borderColor: color, backgroundColor: color + '22', fill: true, tension: 0.4, pointRadius: 0 }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: false }, scales: { x: { display: false }, y: { display: false } } }
-    });
-    state.charts['chart-jarak'] = new Chart($('chart-jarak'), chartConfig('#064e3b'));
-    state.charts['chart-jarak-manual'] = new Chart($('chart-jarak-manual'), chartConfig('#064e3b'));
+function updateBTStatus() {
+    $('btn-connect-ble').disabled = state.bleConnected;
+    $('btn-disconnect-ble').disabled = !state.bleConnected;
+    $('status-bt').innerText = state.bleConnected ? "BT Connected" : "BT Offline";
+    $('status-bt').className = 's-badge ' + (state.bleConnected ? 'online' : '');
 }
 
 function applyMode(isAuto) {
     state.modeOtomatis = isAuto ? 1 : 0;
-    $('btn-mode-auto').className = isAuto ? 'btn-mode active' : 'btn-mode inactive';
-    $('btn-mode-manual').className = isAuto ? 'btn-mode inactive' : 'btn-mode active';
-    $('manual-relay-wrap').style.display = isAuto ? 'none' : 'block';
+    $('mode-auto').className = isAuto ? 'mode-btn active' : 'mode-btn inactive';
+    $('mode-manual').className = !isAuto ? 'mode-btn active' : 'mode-btn inactive';
+    $('manual-relay-control').style.display = isAuto ? 'none' : 'block';
+    sendBLE("mode", isAuto ? 1 : 0);
+    if (state.db) update(ref(state.db, `${state.path}/mode`), { value: isAuto ? 1 : 0 });
 }
+
+$('mode-auto').onclick = () => applyMode(true);
+$('mode-manual').onclick = () => applyMode(false);
 
 function updateRelayUI(isOn) {
-    $('lbl-relay').textContent = isOn ? 'PUMP ON' : 'PUMP OFF';
-    $('icon-relay').className = isOn ? 'actuator-icon on' : 'actuator-icon';
+    $('lbl-relay').textContent = isOn ? 'ON ✓' : 'OFF';
+    $('icon-relay').style.color = isOn ? '#fff33b' : 'white';
 }
 
-// BLE & FIREBASE HANDLERS (Sama dengan kode aslimu)
+function updateSensorUI(key, val) {
+    const el = key === 'jarak_manual' ? $('val-jarak-manual') : $('val-jarak');
+    if (el) el.innerHTML = `${val}<span class="sensor-unit">cm</span>`;
+}
+
+// Bluetooth Logic
 const SVC = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 const TX = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
 const RX = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
 async function connectBLE() {
     try {
+        log("Scanning Micro:bit...", "yellow");
         state.device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: "BBC micro:bit" }], optionalServices: [SVC] });
         const server = await state.device.gatt.connect();
         const service = await server.getPrimaryService(SVC);
         state.txChar = await service.getCharacteristic(TX);
         state.rxChar = await service.getCharacteristic(RX);
         await state.txChar.startNotifications();
-        state.txChar.addEventListener("characteristicvaluechanged", (e) => {
-            let arr = []; for (let i = 0; i < e.target.value.byteLength; i++) arr.push(e.target.value.getUint8(i));
-            state.bleBuffer += String.fromCharCode.apply(null, arr);
-            const lines = state.bleBuffer.split('\n'); state.bleBuffer = lines.pop() || "";
-            lines.forEach(processBLELine);
-        });
-        state.bleConnected = true;
-        $('status-bt').textContent = "Connected"; $('status-bt').classList.add('online');
-        $('btn-disconnect-ble').disabled = false;
-        log("BLE Connected!");
-    } catch (e) { log(e.message, "#ff5f56"); }
+        state.txChar.addEventListener("characteristicvaluechanged", onBLEData);
+        state.bleConnected = true; updateBTStatus();
+        log("Connected: " + state.device.name);
+    } catch (e) { log("BLE Error: " + e.message, "red"); }
+}
+
+function onBLEData(event) {
+    let arr = [];
+    for (let i = 0; i < event.target.value.byteLength; i++) arr.push(event.target.value.getUint8(i));
+    state.bleBuffer += String.fromCharCode.apply(null, arr);
+    const lines = state.bleBuffer.split('\n');
+    state.bleBuffer = lines.pop() || "";
+    lines.forEach(line => { processBLELine(line.trim()); });
 }
 
 function processBLELine(txt) {
-    const line = txt.trim(); if (!line.includes(',')) return;
-    const [key, valStr] = line.split(',');
-    const val = parseFloat(valStr);
+    if (!txt.includes(',')) return;
+    const parts = txt.split(',');
+    const key = parts[0].trim();
+    const val = parseFloat(parts[1]);
     if (key === "mode") applyMode(val === 1);
-    else if (key === "Relay") updateRelayUI(val === 1);
-    else {
-        const el = $(key === 'jarak' ? 'val-jarak' : 'val-jarak-manual');
-        if(el) el.innerHTML = `${val} <span class="sensor-unit">cm</span>`;
-        pushHistory(key, val);
+    if (key === "Relay") updateRelayUI(val === 1);
+    if (key === "jarak" || key === "jarak_manual") {
+        updateSensorUI(key, val); pushHistory(key, val);
     }
 }
 
-async function sendBLE(msg) {
+async function sendBLE(key, val) {
     if (!state.rxChar) return;
-    await state.rxChar.writeValue(new TextEncoder().encode(msg + "\n"));
+    try { await state.rxChar.writeValue(new TextEncoder().encode(`${key},${val}\n`)); } catch (e) {}
 }
 
-window.toggleRelay = (isOn) => sendBLE(`Relay,${isOn ? 1 : 0}`);
+window.toggleRelay = (isOn) => {
+    if (state.modeOtomatis === 1) return;
+    updateRelayUI(isOn); sendBLE("Relay", isOn ? 1 : 0);
+};
 
+// Firebase & Charts Init
 async function connectFirebase() {
-    const config = { apiKey: $('fb-apiKey').value, databaseURL: $('fb-dbUrl').value };
-    state.path = $('fb-path').value;
-    try {
-        const app = initializeApp(config);
-        state.db = getDatabase(app);
-        onValue(ref(state.db, state.path), (s) => {
-            const d = s.val(); if (!d) return;
-            if (d.jarak) {
-                $('val-jarak').innerHTML = `${d.jarak.value} <span class="sensor-unit">cm</span>`;
-                pushHistory('jarak', d.jarak.value);
-            }
-            if (d.relay) updateRelayUI(d.relay.value === 1);
-            $('status-fb').textContent = "Synced"; $('status-fb').classList.add('online');
-        });
-        log("Firebase Synced!");
-    } catch(e) { log(e.message, "#ff5f56"); }
+    const apiKey = $('fb-apiKey').value;
+    const dbUrl = $('fb-dbUrl').value;
+    const app = initializeApp({ apiKey, databaseURL: dbUrl, projectId: "smartgarden" });
+    state.db = getDatabase(app); state.path = $('fb-path').value;
+    onValue(ref(state.db, state.path), (snap) => {
+        const d = snap.val(); if (!d) return;
+        if (d.jarak) updateSensorUI("jarak", d.jarak.value);
+        if (d.relay) updateRelayUI(d.relay.value === 1);
+        $('status-fb').innerText = "FB Connected";
+    });
+}
+
+function makeChart(canvasId, key, color) {
+    const ctx = $(canvasId).getContext('2d');
+    return new Chart(ctx, {
+        type: 'line',
+        data: { labels: state.history[key].labels, datasets: [{ data: state.history[key].data, borderColor: color, tension: 0.4, fill: false, pointRadius: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { display: false } } }
+    });
 }
 
 function pushHistory(key, val) {
-    const h = state.history[key]; if(!h) return;
-    h.labels.push(""); h.data.push(val);
+    const h = state.history[key];
+    h.labels.push(new Date().toLocaleTimeString());
+    h.data.push(val);
     if (h.labels.length > MAX_PTS) { h.labels.shift(); h.data.shift(); }
-    const ch = state.charts[`chart-${key === 'jarak_manual' ? 'jarak-manual' : key}`];
-    if(ch) { ch.data.labels = h.labels; ch.data.datasets[0].data = h.data; ch.update('none'); }
+    Object.values(state.charts).forEach(c => c.update('none'));
 }
 
 $('btn-connect-ble').onclick = connectBLE;
 $('btn-connect-fb').onclick = connectFirebase;
-$('btn-mode-auto').onclick = () => { applyMode(true); sendBLE("mode,1"); };
-$('btn-mode-manual').onclick = () => { applyMode(false); sendBLE("mode,0"); };
 $('btnClearLog').onclick = () => $('terminalLog').innerHTML = '';
 
-window.onload = () => { initCharts(); };
+window.onload = () => {
+    state.charts['j'] = makeChart('chart-jarak', 'jarak', '#2d8a5d');
+    state.charts['jm'] = makeChart('chart-jarak-manual', 'jarak_manual', '#0d9488');
+    state.charts['jb'] = makeChart('chart-jarak-big', 'jarak', '#2d8a5d');
+    state.charts['jmb'] = makeChart('chart-jarak-manual-big', 'jarak_manual', '#0d9488');
+};
 </script>
 </body>
 </html>
