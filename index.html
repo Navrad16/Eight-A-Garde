@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --glass: rgba(185, 250, 214, 0.7);
+            /* Warna Mint Transparan Sesuai Gambar */
+            --glass: rgba(185, 250, 214, 0.6);
             --dark-green: #064e3b;
             --accent-green: #16a34a;
             --radius: 20px;
@@ -28,7 +29,7 @@
 
         .wrapper { max-width: 1000px; margin: 0 auto; }
 
-        /* HEADER DENGAN IKON APPLE */
+        /* HEADER DENGAN IKON APPLE TERBARU */
         .header {
             display: flex;
             align-items: center;
@@ -40,18 +41,18 @@
             font-size: 3.5rem;
             font-weight: 900;
             color: white;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .apple-icon {
-            height: 60px;
+            height: 70px;
             width: auto;
-            mix-blend-mode: multiply; /* Menyamarkan background putih tanpa ubah warna */
+            /* Ikon ini sudah transparan dari link yang kamu berikan */
         }
 
-        /* GRID LAYOUT SESUAI GAMBAR */
+        /* GRID LAYOUT SEPERTI REFERENSI */
         .grid-main {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -60,11 +61,11 @@
 
         .card {
             background: var(--glass);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border-radius: var(--radius);
             padding: 20px;
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
 
         .card-title {
@@ -74,112 +75,114 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-transform: uppercase;
         }
 
         /* INPUT & BUTTONS */
-        label { display: block; font-size: 0.65rem; font-weight: 900; margin-bottom: 3px; text-transform: uppercase; }
+        label { display: block; font-size: 0.65rem; font-weight: 900; margin-bottom: 3px; }
         input {
             width: 100%; padding: 10px; margin-bottom: 10px;
             border-radius: 10px; border: 1px solid rgba(0,0,0,0.1);
-            background: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.5);
             font-family: inherit; font-weight: 700;
+            color: var(--dark-green);
         }
         .btn {
             background: var(--accent-green); color: white; border: none;
             padding: 12px; border-radius: 12px; font-weight: 800;
             cursor: pointer; width: 100%; transition: 0.2s;
         }
-        .btn:hover { background: var(--dark-green); }
+        .btn:hover { background: var(--dark-green); transform: translateY(-2px); }
 
         /* SENSOR & CHART */
-        .sensor-val { font-size: 2.5rem; font-weight: 900; margin: 10px 0; }
+        .sensor-val { font-size: 3rem; font-weight: 900; margin: 10px 0; }
         .sensor-unit { font-size: 1rem; opacity: 0.7; }
-        .chart-container { height: 120px; width: 100%; margin-top: 10px; }
+        .chart-container { height: 100px; width: 100%; }
 
         /* MODE & ACTUATOR */
-        .mode-row { grid-column: span 2; display: flex; justify-content: space-between; align-items: center; }
+        .full-width { grid-column: span 2; }
+        .mode-row { display: flex; justify-content: space-between; align-items: center; }
         .mode-btns { display: flex; gap: 10px; }
         .btn-mode {
-            padding: 10px 20px; border-radius: 15px; border: none;
-            font-weight: 800; cursor: pointer;
+            padding: 10px 25px; border-radius: 20px; border: none;
+            font-weight: 800; cursor: pointer; transition: 0.3s;
         }
-        .btn-mode.active { background: var(--accent-green); color: white; }
-        
-        .actuator-card { grid-column: span 2; text-align: center; }
-        .actuator-icon { font-size: 3rem; margin-bottom: 10px; }
+        .btn-mode.active { background: var(--dark-green); color: white; }
+        .btn-mode.inactive { background: rgba(255,255,255,0.4); color: var(--dark-green); }
+
+        /* RELAY */
+        .actuator-card { text-align: center; padding: 30px; }
+        .actuator-icon { font-size: 4rem; margin-bottom: 10px; opacity: 0.3; transition: 0.3s; }
+        .actuator-icon.on { opacity: 1; color: #f1c40f; text-shadow: 0 0 20px #f1c40f; }
 
         /* TERMINAL */
-        .terminal-card { grid-column: span 2; background: #052e16; color: #4ade80; }
-        .terminal-header { display: flex; gap: 5px; margin-bottom: 10px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .log-panel { height: 150px; overflow-y: auto; font-family: 'Space Mono', monospace; font-size: 0.8rem; }
+        .terminal-card { background: #052e16; color: #4ade80; }
+        .log-panel { height: 140px; overflow-y: auto; font-family: 'Space Mono', monospace; font-size: 0.75rem; line-height: 1.5; }
 
-        @media (max-width: 768px) { .grid-main { grid-template-columns: 1fr; } .mode-row { flex-direction: column; gap: 15px; } }
+        .badge { font-size: 0.7rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; background: white; margin-left: 10px; }
+        .badge.online { color: var(--accent-green); border: 1px solid var(--accent-green); }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
     <div class="header">
-        <h1>Eight <img src="https://i.pinimg.com/736x/e8/41/28/e84128d138ceee9eaa11d5b6e77f4697.jpg" class="apple-icon"> Garden</h1>
+        <h1>Eight <img src="https://img.sanishtech.com/u/421b447f1026ccf6684e267b26fcc9a3.png" class="apple-icon"> Garden</h1>
     </div>
 
     <div class="grid-main">
         <div class="card">
-            <div class="card-title"><i class="fas fa-cloud"></i> FireBase Cloud Sync</div>
+            <div class="card-title"><i class="fas fa-cloud"></i> FireBase Cloud Sync <span class="badge" id="status-fb">Offline</span></div>
             <label>API Key</label><input type="password" id="fb-apiKey">
             <label>Database URL</label><input type="text" id="fb-dbUrl">
-            <label>Node Path</label><input type="text" id="fb-path">
-            <button class="btn" id="btn-connect-fb"><i class="fas fa-link"></i> Connect FireBase</button>
+            <label>Node Path</label><input type="text" id="fb-path" value="garden/sensor1">
+            <button class="btn" id="btn-connect-fb">Connect FireBase</button>
         </div>
 
         <div class="card">
-            <div class="card-title"><i class="fas fa-cog"></i> Micro:Bit Bluetooth</div>
-            <p style="font-size: 0.7rem; margin-bottom: 15px; opacity: 0.8;">Pastikan Micro:bit menyala dan ekstensi Bluetooth UART aktif.</p>
-            <button class="btn" id="btn-connect-ble"><i class="fab fa-bluetooth-b"></i> Connect Micro:Bit</button>
+            <div class="card-title"><i class="fab fa-bluetooth"></i> Bluetooth <span class="badge" id="status-bt">Offline</span></div>
+            <p style="font-size: 0.75rem; margin-bottom: 25px; opacity: 0.8;">Klik hubungkan untuk sinkronisasi data langsung dengan Micro:bit.</p>
+            <button class="btn" id="btn-connect-ble">Connect Micro:Bit</button>
             <button class="btn" id="btn-disconnect-ble" style="background:#555; margin-top:10px" disabled>Disconnect</button>
         </div>
 
-        <div class="card mode-row">
+        <div class="card full-width mode-row">
             <div>
-                <p style="font-weight: 800;"><i class="fas fa-robot"></i> System Mode</p>
-                <p style="font-size: 0.65rem; opacity: 0.7;">Automatic: Relay dikontrol sensor | Manual: Kontrol saklar</p>
+                <p style="font-weight: 900;"><i class="fas fa-microchip"></i> System Mode</p>
+                <p style="font-size: 0.7rem; opacity: 0.7;">Auto: Kontrol Sensor | Manual: Kontrol Tombol</p>
             </div>
             <div class="mode-btns">
                 <button class="btn-mode active" id="btn-mode-auto">Automatic</button>
-                <button class="btn-mode" style="background:rgba(255,255,255,0.5)" id="btn-mode-manual">Manual</button>
+                <button class="btn-mode inactive" id="btn-mode-manual">Manual</button>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-title"><i class="fas fa-ruler-vertical"></i> Ultrasonic 1 - P0 / P1</div>
+            <div class="card-title"><i class="fas fa-ruler-vertical"></i> Ultrasonic 1 (P0)</div>
             <div class="sensor-val" id="val-jarak">-- <span class="sensor-unit">cm</span></div>
             <div class="chart-container"><canvas id="chart-jarak"></canvas></div>
         </div>
 
         <div class="card">
-            <div class="card-title"><i class="fas fa-tint"></i> Ultrasonic 2 - Ember</div>
+            <div class="card-title"><i class="fas fa-tint"></i> Ultrasonic 2 (Ember)</div>
             <div class="sensor-val" id="val-jarak-manual">-- <span class="sensor-unit">cm</span></div>
             <div class="chart-container"><canvas id="chart-jarak-manual"></canvas></div>
         </div>
 
-        <div class="card actuator-card">
-            <div class="card-title" style="justify-content: center;"><i class="fas fa-bolt"></i> Aktuator</div>
+        <div class="card full-width actuator-card">
+            <div class="card-title" style="justify-content: center;"><i class="fas fa-bolt"></i> Actuator Control</div>
             <div class="actuator-icon" id="icon-relay">⚡</div>
             <h2 id="lbl-relay">PUMP OFF</h2>
-            <div id="manual-relay-wrap" style="display:none; margin-top: 15px;">
-                <label>Manual Toggle</label>
-                <input type="checkbox" id="sw-relay" onchange="window.toggleRelay(this.checked)">
+            <div id="manual-relay-wrap" style="display:none; margin-top: 20px;">
+                <label>MANUAL TOGGLE</label>
+                <input type="checkbox" id="sw-relay" style="width: 40px; height: 20px; cursor: pointer;" onchange="window.toggleRelay(this.checked)">
             </div>
         </div>
 
-        <div class="card terminal-card">
-            <div class="terminal-header">
-                <div class="dot" style="background:#ff5f56"></div>
-                <div class="dot" style="background:#ffbd2e"></div>
-                <div class="dot" style="background:#27c93f"></div>
-                <span style="font-size: 0.7rem; margin-left: 10px; opacity: 0.6;">System_terminal</span>
-                <i class="fas fa-trash" id="btnClearLog" style="margin-left: auto; cursor: pointer; opacity: 0.5;"></i>
+        <div class="card full-width terminal-card">
+            <div style="display:flex; justify-content:space-between; opacity:0.6; font-size:0.7rem; margin-bottom:10px;">
+                <span>SYSTEM_CONSOLE_LOG</span>
+                <i class="fas fa-trash" id="btnClearLog" style="cursor:pointer;"></i>
             </div>
             <div id="terminalLog" class="log-panel"></div>
         </div>
@@ -187,7 +190,7 @@
 </div>
 
 <script type="module">
-// LOGIKA SAMA PERSIS DENGAN FILE ASLI index (3).html
+// LOGIKA DIADAPTASI DARI FILE ASLI AGAR TETAP BEKERJA
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import { getDatabase, ref, onValue, update } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
@@ -197,46 +200,40 @@ const state = {
     charts: {}, history: { jarak: { labels: [], data: [] }, jarak_manual: { labels: [], data: [] } }
 };
 
-const MAX_PTS = 20;
 const $ = id => document.getElementById(id);
+const MAX_PTS = 20;
 
 function log(msg, color = "#4ade80") {
     const t = new Date().toLocaleTimeString('id-ID', { hour12: false });
     $('terminalLog').insertAdjacentHTML('afterbegin', `<div style="color:${color}">[${t}] ${msg}</div>`);
 }
 
-// LOGIC FUNCTIONS DARI FILE ASLI
 function initCharts() {
-    const cfg = (label, color) => ({
+    const chartConfig = (color) => ({
         type: 'line',
-        data: { labels: [], datasets: [{ label, data: [], borderColor: color, backgroundColor: color+'33', fill: true, tension: 0.4, pointRadius: 2 }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { grid: { color: 'rgba(0,0,0,0.05)' } } } }
+        data: { labels: [], datasets: [{ data: [], borderColor: color, backgroundColor: color + '22', fill: true, tension: 0.4, pointRadius: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: false }, scales: { x: { display: false }, y: { display: false } } }
     });
-    state.charts['chart-jarak'] = new Chart($('chart-jarak'), cfg('Jarak', '#16a34a'));
-    state.charts['chart-jarak-manual'] = new Chart($('chart-jarak-manual'), cfg('Manual', '#0d9488'));
+    state.charts['chart-jarak'] = new Chart($('chart-jarak'), chartConfig('#064e3b'));
+    state.charts['chart-jarak-manual'] = new Chart($('chart-jarak-manual'), chartConfig('#064e3b'));
 }
 
 function applyMode(isAuto) {
     state.modeOtomatis = isAuto ? 1 : 0;
-    $('btn-mode-auto').className = 'btn-mode' + (isAuto ? ' active' : '');
-    $('btn-mode-manual').className = 'btn-mode' + (!isAuto ? ' active' : '');
-    $('btn-mode-manual').style.background = isAuto ? 'rgba(255,255,255,0.5)' : '#16a34a';
-    $('btn-mode-auto').style.background = isAuto ? '#16a34a' : 'rgba(255,255,255,0.5)';
+    $('btn-mode-auto').className = isAuto ? 'btn-mode active' : 'btn-mode inactive';
+    $('btn-mode-manual').className = isAuto ? 'btn-mode inactive' : 'btn-mode active';
     $('manual-relay-wrap').style.display = isAuto ? 'none' : 'block';
 }
 
 function updateRelayUI(isOn) {
     $('lbl-relay').textContent = isOn ? 'PUMP ON' : 'PUMP OFF';
-    $('icon-relay').style.color = isOn ? '#f1c40f' : '#064e3b';
+    $('icon-relay').className = isOn ? 'actuator-icon on' : 'actuator-icon';
 }
 
-// Tambahkan sisa logika Bluetooth & Firebase dari file aslimu di sini...
-// (Untuk menghemat ruang, fungsi connectBLE, connectFirebase, dll tetap sama dengan file index (3).html)
-
-// BLE Constants & Handlers
+// BLE & FIREBASE HANDLERS (Sama dengan kode aslimu)
 const SVC = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
-const TX  = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
-const RX  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+const TX = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+const RX = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
 async function connectBLE() {
     try {
@@ -247,42 +244,72 @@ async function connectBLE() {
         state.rxChar = await service.getCharacteristic(RX);
         await state.txChar.startNotifications();
         state.txChar.addEventListener("characteristicvaluechanged", (e) => {
-            let arr = []; for (let i=0; i<e.target.value.byteLength; i++) arr.push(e.target.value.getUint8(i));
+            let arr = []; for (let i = 0; i < e.target.value.byteLength; i++) arr.push(e.target.value.getUint8(i));
             state.bleBuffer += String.fromCharCode.apply(null, arr);
             const lines = state.bleBuffer.split('\n'); state.bleBuffer = lines.pop() || "";
-            lines.forEach(line => {
-                const parts = line.trim().split(',');
-                if (parts.length === 2) {
-                    const [key, val] = parts;
-                    if (key === 'jarak' || key === 'jarak_manual') {
-                        $(key === 'jarak' ? 'val-jarak' : 'val-jarak-manual').innerHTML = `${val} <span class="sensor-unit">cm</span>`;
-                        pushHistory(key, val);
-                    } else if (key === 'Relay') updateRelayUI(val === '1');
-                }
-            });
+            lines.forEach(processBLELine);
         });
-        state.bleConnected = true; $('btn-disconnect-ble').disabled = false; log("BLE Connected!");
-    } catch (e) { log(e.message, "red"); }
+        state.bleConnected = true;
+        $('status-bt').textContent = "Connected"; $('status-bt').classList.add('online');
+        $('btn-disconnect-ble').disabled = false;
+        log("BLE Connected!");
+    } catch (e) { log(e.message, "#ff5f56"); }
 }
 
-async function sendBLE(msg) { if (state.rxChar) await state.rxChar.writeValue(new TextEncoder().encode(msg + "\n")); }
+function processBLELine(txt) {
+    const line = txt.trim(); if (!line.includes(',')) return;
+    const [key, valStr] = line.split(',');
+    const val = parseFloat(valStr);
+    if (key === "mode") applyMode(val === 1);
+    else if (key === "Relay") updateRelayUI(val === 1);
+    else {
+        const el = $(key === 'jarak' ? 'val-jarak' : 'val-jarak-manual');
+        if(el) el.innerHTML = `${val} <span class="sensor-unit">cm</span>`;
+        pushHistory(key, val);
+    }
+}
+
+async function sendBLE(msg) {
+    if (!state.rxChar) return;
+    await state.rxChar.writeValue(new TextEncoder().encode(msg + "\n"));
+}
 
 window.toggleRelay = (isOn) => sendBLE(`Relay,${isOn ? 1 : 0}`);
 
-function pushHistory(key, val) {
-    const h = state.history[key]; h.labels.push(""); h.data.push(val);
-    if (h.labels.length > MAX_PTS) { h.labels.shift(); h.data.shift(); }
-    const ch = state.charts[`chart-${key === 'jarak_manual' ? 'jarak-manual' : key}`];
-    ch.update('none');
+async function connectFirebase() {
+    const config = { apiKey: $('fb-apiKey').value, databaseURL: $('fb-dbUrl').value };
+    state.path = $('fb-path').value;
+    try {
+        const app = initializeApp(config);
+        state.db = getDatabase(app);
+        onValue(ref(state.db, state.path), (s) => {
+            const d = s.val(); if (!d) return;
+            if (d.jarak) {
+                $('val-jarak').innerHTML = `${d.jarak.value} <span class="sensor-unit">cm</span>`;
+                pushHistory('jarak', d.jarak.value);
+            }
+            if (d.relay) updateRelayUI(d.relay.value === 1);
+            $('status-fb').textContent = "Synced"; $('status-fb').classList.add('online');
+        });
+        log("Firebase Synced!");
+    } catch(e) { log(e.message, "#ff5f56"); }
 }
 
-// Connect Actions
+function pushHistory(key, val) {
+    const h = state.history[key]; if(!h) return;
+    h.labels.push(""); h.data.push(val);
+    if (h.labels.length > MAX_PTS) { h.labels.shift(); h.data.shift(); }
+    const ch = state.charts[`chart-${key === 'jarak_manual' ? 'jarak-manual' : key}`];
+    if(ch) { ch.data.labels = h.labels; ch.data.datasets[0].data = h.data; ch.update('none'); }
+}
+
 $('btn-connect-ble').onclick = connectBLE;
+$('btn-connect-fb').onclick = connectFirebase;
 $('btn-mode-auto').onclick = () => { applyMode(true); sendBLE("mode,1"); };
 $('btn-mode-manual').onclick = () => { applyMode(false); sendBLE("mode,0"); };
 $('btnClearLog').onclick = () => $('terminalLog').innerHTML = '';
 
-window.onload = () => { initCharts(); applyMode(true); };
+window.onload = () => { initCharts(); };
 </script>
 </body>
 </html>
