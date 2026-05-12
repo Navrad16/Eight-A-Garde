@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eight Garden 🌱</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Nunito:wght@700;900&family=Fredoka:wght@500;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Nunito:wght@700;900&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.25);
-            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.3);
             --btn-green: #1e7e4d;
             --text-color: #ffffff;
             --radius: 25px;
@@ -20,26 +20,24 @@
 
         body {
             font-family: 'Nunito', sans-serif;
-            /* Update Background Link Pinterest */
-            background: url('https://i.pinimg.com/736x/95/d9/18/95d9184b27f13c4617e9b04d03ce38b0.jpg') no-repeat center center fixed;
+            background: url('https://i.pinimg.com/736x/f6/d1/3f/f6d13f28dc53835a97934ba82eb5b03a.jpg') no-repeat center center fixed;
             background-size: cover;
             color: var(--text-color);
             padding: 20px;
             min-height: 100vh;
         }
 
-        /* Overlay gelap sedikit agar teks terbaca */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.15);
             z-index: -1;
         }
 
-        .wrapper { max-width: 850px; margin: 0 auto; }
+        .wrapper { max-width: 900px; margin: 0 auto; }
 
-        /* ===== HEADER & LOGO TEKS ===== */
+        /* ===== HEADER & APPLE ICON ===== */
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -51,20 +49,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            text-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+            gap: 10px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
         }
-        /* Logo Teks StrawBerry (Referensi Link ke-2) */
-        .logo-text {
-            font-family: 'Pacifico', cursive;
-            font-size: 0.8em;
-            color: #ff4d4d; /* Merah Strawberry */
-            background: white;
-            padding: 0 15px;
-            border-radius: 50px;
-            transform: rotate(-5deg);
-            box-shadow: 4px 4px 0px #c0392b;
-            border: 2px solid #fff;
+        .apple-icon {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
         }
 
         .status-wrap { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
@@ -78,33 +70,32 @@
             border: 1px solid var(--glass-border);
             color: white;
         }
-        .badge.online { background: #ffffff; color: #1b5e20; }
+        .badge.online { background: rgba(255, 255, 255, 0.9); color: #1e7e4d; }
 
         .card {
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
             border-radius: var(--radius);
-            border: 2px solid var(--glass-border);
+            border: 1px solid var(--glass-border);
             padding: 20px;
             margin-bottom: 15px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
-        .card-title { font-size: 0.85rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .card-title { font-size: 0.85rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-        label { display: block; font-size: 0.65rem; font-weight: 900; margin-bottom: 4px; }
+        label { display: block; font-size: 0.65rem; font-weight: 900; margin-bottom: 4px; text-transform: uppercase; }
         input {
-            width: 100%; padding: 10px;
-            border-radius: 12px; border: none;
-            background: rgba(255,255,255,0.3);
+            width: 100%; padding: 12px;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
             margin-bottom: 8px; outline: none;
             color: white; font-weight: 700;
         }
-        input::placeholder { color: rgba(255,255,255,0.7); }
 
         .btn {
-            background: #1e7e4d;
+            background: var(--btn-green);
             color: white; border: none;
             padding: 12px; border-radius: 15px;
             font-weight: 800; cursor: pointer;
@@ -112,37 +103,40 @@
         }
         .btn:hover { background: #145a32; transform: translateY(-2px); }
 
-        /* MODE SWITCH */
+        /* MODE BANNER */
         .mode-section {
             display: flex; align-items: center; justify-content: space-between;
             background: var(--glass-bg); padding: 15px 25px;
             border-radius: var(--radius); margin-bottom: 15px;
-            border: 2px solid var(--glass-border); backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); backdrop-filter: blur(15px);
         }
-        .mode-btns { display: flex; gap: 10px; }
         .mode-btn {
             padding: 10px 20px; border-radius: 15px; border: none;
             font-weight: 800; cursor: pointer; font-size: 0.8rem;
         }
-        .mode-btn.active { background: #1e7e4d; color: white; }
+        .mode-btn.active { background: var(--btn-green); color: white; }
         .mode-btn.inactive { background: rgba(255,255,255,0.8); color: #1e7e4d; }
 
         /* SENSOR */
-        .sensor-val { font-size: 2.5rem; font-weight: 900; margin: 5px 0; }
+        .sensor-val { font-size: 2.8rem; font-weight: 900; margin: 5px 0; }
         .sensor-bar { height: 8px; background: rgba(255,255,255,0.2); border-radius: 10px; margin: 15px 0; overflow: hidden; }
         .sensor-bar-fill { height: 100%; background: #ffffff; transition: 0.5s; width: 0%; }
+        .chart-wrap { height: 100px; width: 100%; }
+
+        /* RELAY */
+        .relay-card { text-align: center; padding: 30px; }
+        #icon-relay { font-size: 3.5rem; margin: 10px 0; transition: 0.4s; }
+        #lbl-relay { font-size: 1.5rem; font-weight: 900; }
 
         /* TERMINAL */
         .terminal {
-            background: rgba(5, 26, 7, 0.9);
+            background: rgba(10, 20, 10, 0.9);
             border-radius: var(--radius);
-            padding: 20px; color: #7cfc00;
+            padding: 20px; color: #a3e635;
             font-family: 'Space Mono', monospace;
             margin-top: 20px; border: 1px solid var(--glass-border);
         }
-        .terminal-header { display: flex; gap: 8px; margin-bottom: 12px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .log-panel { height: 150px; overflow-y: auto; font-size: 12px; }
+        .log-panel { height: 160px; overflow-y: auto; font-size: 11px; }
 
         @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
     </style>
@@ -151,7 +145,7 @@
 
 <div class="wrapper">
     <div class="header">
-        <h1>Eight <span class="logo-text">StrawBerry</span> Garden</h1>
+        <h1>Eight <img src="https://i.pinimg.com/736x/e8/41/28/e84128d138ceee9eaa11d5b6e77f4697.jpg" class="apple-icon"> Garden</h1>
     </div>
 
     <div class="status-wrap">
@@ -161,64 +155,220 @@
 
     <div class="grid-2">
         <div class="card">
-            <div class="card-title"><i class="fas fa-cloud"></i> FireBase Cloud Sync</div>
+            <div class="card-title"><i class="fas fa-cloud"></i> Firebase Cloud</div>
             <label>API KEY</label>
-            <input type="password" id="fb-apiKey" placeholder="Masukkan API Key...">
-            <label>DATABASE URL</label>
+            <input type="password" id="fb-apiKey" placeholder="AIzaSy...">
+            <label>DB URL</label>
             <input type="text" id="fb-dbUrl" placeholder="https://your-db.firebaseio.com">
-            <label>NODE PATH</label>
-            <input type="text" id="fb-path" placeholder="garden/sensor1">
-            <button class="btn" id="btn-connect-fb">Connect FireBase</button>
+            <label>Path</label>
+            <input type="text" id="fb-path" value="garden/sensor1">
+            <button class="btn" id="btn-connect-fb">Connect Firebase</button>
         </div>
 
         <div class="card">
-            <div class="card-title"><i class="fas fa-cog"></i> Micro:Bit Bluetooth</div>
-            <p style="font-size: 11px; margin-bottom: 15px; opacity: 0.9;">Koneksikan ke Micro:bit untuk kontrol real-time.</p>
+            <div class="card-title"><i class="fas fa-bluetooth"></i> Bluetooth BLE</div>
+            <p style="font-size: 11px; margin-bottom: 20px; opacity: 0.8;">Hubungkan Micro:bit untuk pemantauan data real-time.</p>
             <button class="btn" id="btn-connect-ble" style="margin-bottom: 10px;">Connect Micro:Bit</button>
-            <button class="btn" id="btn-disconnect-ble" style="background:#555" disabled>Disconnect</button>
+            <button class="btn" id="btn-disconnect-ble" style="background:#444" disabled>Disconnect</button>
         </div>
     </div>
 
     <div class="mode-section">
         <div>
             <h3 style="font-size: 1rem;">System Mode</h3>
-            <p id="mode-desc" style="font-size: 0.7rem; opacity: 0.8;">Automatic: controlled by sensor</p>
+            <p id="mode-desc" style="font-size: 0.7rem; opacity: 0.8;">Auto: Sensor based / Manual: Web controlled</p>
         </div>
-        <div class="mode-btns">
-            <button class="mode-btn active" id="btn-mode-auto"><i class="fas fa-robot"></i> Automatic</button>
-            <button class="mode-btn inactive" id="btn-mode-manual"><i class="fas fa-hand-paper"></i> Manual</button>
+        <div style="display:flex; gap:10px;">
+            <button class="mode-btn active" id="btn-mode-auto">Automatic</button>
+            <button class="mode-btn inactive" id="btn-mode-manual">Manual</button>
         </div>
     </div>
 
     <div class="grid-2">
         <div class="card">
-            <div class="card-title"><i class="fas fa-tint"></i> Ultrasonic 1 - P0/P1</div>
+            <div class="card-title"><i class="fas fa-ruler-vertical"></i> Ultrasonic 1</div>
             <div class="sensor-val" id="val-jarak">--<span style="font-size: 1rem;">cm</span></div>
             <div class="sensor-bar"><div class="sensor-bar-fill" id="bar-jarak"></div></div>
-            <canvas id="chart-jarak" style="max-height: 80px;"></canvas>
+            <div class="chart-wrap"><canvas id="chart-jarak"></canvas></div>
         </div>
         <div class="card">
-            <div class="card-title"><i class="fas fa-water"></i> Ultrasonic 2 - Ember</div>
+            <div class="card-title"><i class="fas fa-water"></i> Ultrasonic 2 (Ember)</div>
             <div class="sensor-val" id="val-jarak-manual">--<span style="font-size: 1rem;">cm</span></div>
             <div class="sensor-bar"><div class="sensor-bar-fill" id="bar-jarak-manual"></div></div>
-            <canvas id="chart-jarak-manual" style="max-height: 80px;"></canvas>
+            <div class="chart-wrap"><canvas id="chart-jarak-manual"></canvas></div>
         </div>
     </div>
 
-    <div class="card" style="text-align: center; padding: 40px;">
-        <div class="card-title" style="justify-content: center;"><i class="fas fa-bolt"></i> Aktuator</div>
-        <div id="icon-relay" style="font-size: 4rem; margin: 10px 0; opacity: 0.3;">⚡</div>
-        <div id="lbl-relay" style="font-size: 1.5rem; font-weight: 900;">PUMP OFF</div>
+    <div class="card relay-card">
+        <div class="card-title" style="justify-content: center;"><i class="fas fa-bolt"></i> Pump Actuator</div>
+        <div id="icon-relay">⚡</div>
+        <div id="lbl-relay">PUMP OFF</div>
         
-        <div id="manual-relay-wrap" style="display:none; margin-top: 20px; justify-content: center; gap: 10px; align-items: center;">
-            <span style="font-size: 0.8rem; font-weight: 800;">MANUAL SWITCH:</span>
-            <input type="checkbox" id="sw-relay" style="width: 40px; height: 20px; cursor: pointer;" onchange="window.toggleRelay(this.checked)">
+        <div id="manual-relay-wrap" style="display:none; margin-top: 15px; justify-content: center; gap: 10px; align-items: center;">
+            <span style="font-size: 0.8rem; font-weight: 800;">Manual Toggle:</span>
+            <input type="checkbox" id="sw-relay" style="width: 40px; height: 20px;" onchange="window.toggleRelay(this.checked)">
         </div>
     </div>
 
     <div class="terminal">
-        <div class="terminal-header">
-            <div class="dot" style="background:#ff5f56"></div>
-            <div class="dot" style="background:#ffbd2e"></div>
-            <div class="dot" style="background:#27c93f"></div>
-            <span style="font-size: 0.7rem; margin-left: 10px; opacity: 0
+        <div style="display:flex; justify-content:space-between; margin-bottom: 10px; opacity: 0.6; font-size: 0.7rem;">
+            <span>System Console</span>
+            <i class="fas fa-trash" id="btnClearLog" style="cursor:pointer"></i>
+        </div>
+        <div id="terminalLog" class="log-panel"></div>
+    </div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getDatabase, ref, onValue, update } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+const state = {
+    db: null, path: "", device: null, txChar: null, rxChar: null,
+    bleConnected: false, bleBuffer: "", modeOtomatis: 1,
+    charts: {}, history: { jarak: { labels: [], data: [] }, jarak_manual: { labels: [], data: [] } }
+};
+
+const MAX_PTS = 20;
+const $ = id => document.getElementById(id);
+
+function log(msg, color = "#a3e635") {
+    const t = new Date().toLocaleTimeString('id-ID', { hour12: false });
+    $('terminalLog').insertAdjacentHTML('afterbegin', `<div style="color:${color}">[${t}] ${msg}</div>`);
+}
+
+function applyMode(isAuto) {
+    state.modeOtomatis = isAuto ? 1 : 0;
+    $('btn-mode-auto').className = isAuto ? 'mode-btn active' : 'mode-btn inactive';
+    $('btn-mode-manual').className = isAuto ? 'mode-btn inactive' : 'mode-btn active';
+    $('manual-relay-wrap').style.display = isAuto ? 'none' : 'flex';
+}
+
+function updateRelayUI(isOn) {
+    $('lbl-relay').textContent = isOn ? 'PUMP ON' : 'PUMP OFF';
+    $('icon-relay').style.color = isOn ? '#f1c40f' : '#ffffff';
+    $('icon-relay').style.opacity = isOn ? '1' : '0.3';
+}
+
+function updateSensorUI(key, val) {
+    const el = $(key === 'jarak_manual' ? 'val-jarak-manual' : `val-${key}`);
+    if (el) el.innerHTML = `${val}<span style="font-size: 1rem;">cm</span>`;
+    const bar = $(key === 'jarak_manual' ? 'bar-jarak-manual' : `bar-${key}`);
+    if (bar) bar.style.width = Math.min(100, (val / 100) * 100) + '%';
+}
+
+// BLUETOOTH LOGIC
+const SVC = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+const TX = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+const RX = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+
+async function connectBLE() {
+    try {
+        state.device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: "BBC micro:bit" }], optionalServices: [SVC] });
+        const server = await state.device.gatt.connect();
+        const service = await server.getPrimaryService(SVC);
+        state.txChar = await service.getCharacteristic(TX);
+        state.rxChar = await service.getCharacteristic(RX);
+        await state.txChar.startNotifications();
+        state.txChar.addEventListener("characteristicvaluechanged", (e) => {
+            let arr = [];
+            for (let i = 0; i < e.target.value.byteLength; i++) arr.push(e.target.value.getUint8(i));
+            state.bleBuffer += String.fromCharCode.apply(null, arr);
+            const lines = state.bleBuffer.split('\n');
+            state.bleBuffer = lines.pop() || "";
+            lines.forEach(processBLELine);
+        });
+        state.bleConnected = true;
+        $('status-bt').className = 'badge online';
+        $('status-bt').textContent = 'BT Connected';
+        log("Micro:bit Connected!");
+    } catch (e) { log(e.message, "#ff5f56"); }
+}
+
+function processBLELine(txt) {
+    const line = txt.trim(); if (!line.includes(',')) return;
+    const [key, valStr] = line.split(',');
+    const val = parseFloat(valStr);
+    if (key === "mode") applyMode(val === 1);
+    else if (key === "Relay") updateRelayUI(val === 1);
+    else { updateSensorUI(key, val); pushHistory(key, val); }
+}
+
+async function sendBLE(key, val) {
+    if (!state.rxChar) return;
+    await state.rxChar.writeValue(new TextEncoder().encode(`${key},${val}\n`));
+}
+
+window.toggleRelay = (check) => {
+    if (state.modeOtomatis) return;
+    sendBLE("Relay", check ? 1 : 0);
+};
+
+// FIREBASE
+async function connectFirebase() {
+    const config = { apiKey: $('fb-apiKey').value, databaseURL: $('fb-dbUrl').value };
+    state.path = $('fb-path').value;
+    try {
+        const app = initializeApp(config);
+        state.db = getDatabase(app);
+        onValue(ref(state.db, state.path), (s) => {
+            const d = s.val(); if (!d) return;
+            if (d.jarak) updateSensorUI("jarak", d.jarak.value);
+            if (d.relay) updateRelayUI(d.relay.value === 1);
+            $('status-fb').className = 'badge online';
+            $('status-fb').textContent = 'DB Synced';
+        });
+        log("Firebase Connected!");
+    } catch(e) { log(e.message, "#ff5f56"); }
+}
+
+// CHART DESIGN ASLI
+function makeChart(id, color) {
+    return new Chart($(id).getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                data: [],
+                borderColor: color,
+                backgroundColor: color + '33', // Efek transparan bawah
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { display: false }, y: { display: false } }
+        }
+    });
+}
+
+function pushHistory(key, val) {
+    const h = state.history[key]; if (!h) return;
+    h.labels.push(""); h.data.push(val);
+    if (h.labels.length > MAX_PTS) { h.labels.shift(); h.data.shift(); }
+    const c = state.charts[key === 'jarak' ? 'chart-jarak' : 'chart-jarak-manual'];
+    if (c) {
+        c.data.labels = h.labels;
+        c.data.datasets[0].data = h.data;
+        c.update('none');
+    }
+}
+
+$('btn-connect-ble').onclick = connectBLE;
+$('btn-connect-fb').onclick = connectFirebase;
+$('btn-mode-auto').onclick = () => { applyMode(true); sendBLE("mode", 1); };
+$('btn-mode-manual').onclick = () => { applyMode(false); sendBLE("mode", 0); };
+$('btnClearLog').onclick = () => $('terminalLog').innerHTML = '';
+
+window.onload = () => {
+    state.charts['chart-jarak'] = makeChart('chart-jarak', '#ffffff');
+    state.charts['chart-jarak-manual'] = makeChart('chart-jarak-manual', '#ffffff');
+};
+</script>
+</body>
+</html>
